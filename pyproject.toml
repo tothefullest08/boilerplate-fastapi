@@ -1,0 +1,25 @@
+[tool.poetry]
+name = "fastapi-boilerplate"
+version = "0.1.0"
+description = ""
+authors = ["Harry <tothefullest08@gmail.com>"]
+
+[tool.poetry.dependencies]
+python = "3.8.6"
+fastapi = "^0.100.0"
+uvicorn = "^0.23.0"
+SQLAlchemy = "^2.0.19"
+pydantic-settings = "^2.0.2"
+psycopg2-binary = "^2.9.6"
+pymysql = "^1.1.0"
+
+[tool.poetry.dev-dependencies]
+isort = "^5.12.0"
+black = "^23.7.0"
+
+[tool.isort]
+profile = "black"
+
+[build-system]
+requires = ["poetry-core>=1.0.0"]
+build-backend = "poetry.core.masonry.api"

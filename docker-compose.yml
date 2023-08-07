@@ -1,0 +1,17 @@
+version: '3.6'
+
+services:
+  mysql-db:
+    image: mysql:5.7
+    platform: linux/amd64
+    ports:
+      - 33060:33060
+    environment:
+      MYSQL_DATABASE: mysql
+      MYSQL_USER: admin
+      MYSQL_PASSWORD: admin1234
+      MYSQL_ROOT_PASSWORD: admin1234
+      TZ: UTC
+    command:
+      - --character-set-server=utf8mb4
+      - --collation-server=utf8mb4_unicode_ci
