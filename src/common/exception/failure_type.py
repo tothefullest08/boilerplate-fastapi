@@ -6,6 +6,7 @@ class FailureType(Enum):
     INVALID_REQUEST_ERROR = ("invalid_request_error", 400)
     CREATE_DATA_ERROR = ("create_data_error", 400)
     GET_DATA_ERROR = ("get_data_error", 400)
+    UPSERT_DATA_ERROR = ("usert_data_error", 400)
     UPDATE_DATA_ERROR = ("update_data_error", 400)
     DELETE_DATA_ERROR = ("delete_data_error", 400)
     NOT_AUTHORIZED_ERROR = ("not_authorized_error", 401)

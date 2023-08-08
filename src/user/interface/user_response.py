@@ -1,6 +1,10 @@
+from datetime import datetime
 from typing import List
 
 from pydantic import BaseModel, Field
+
+from src.common.response import BaseResponse
+from src.user.interface.user_dto import UserTokenDto
 
 
 class UserResponse(BaseModel):
@@ -9,6 +13,5 @@ class UserResponse(BaseModel):
     access_token: str = Field(..., description="액세스 토큰")
 
 
-class GetUsersResponse(BaseModel):
-    count: int
-    payload: List[UserResponse]
+class UserTokenResponse(BaseResponse):
+    data: UserTokenDto

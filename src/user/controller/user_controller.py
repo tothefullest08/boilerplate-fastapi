@@ -1,43 +1,66 @@
+from fastapi import APIRouter, Depends
 from sqlalchemy.orm import Session
 
-from fastapi import APIRouter, Depends, Header
-
-from src.common.auth import AuthValidator
 from src.common.database import get_db
 from src.common.exception import FailureType
 from src.common.response import ErrorResponse
-from src.user.interface.user_response import UserResponse, GetUsersResponse
+from src.user.interface.user_dto import UserTokenDto
+from src.user.interface.user_request import UserRequest
+from src.user.interface.user_response import UserTokenResponse
 from src.user.service.user_service import UserService
 
 router = APIRouter()
 
 
-@router.get(
-    path="/",
-    response_model=GetUsersResponse,
+@router.post(
+    path="/sign-in",
+    response_model=UserTokenResponse,
     responses={
+        401: {
+            "model": ErrorResponse,
+            "description": f"{FailureType.NOT_AUTHORIZED_ERROR.error_type}",
+        },
         400: {
             "model": ErrorResponse,
-            "description": f"{FailureType.GET_DATA_ERROR.error_type}",
+            "description": f"{FailureType.UPSERT_DATA_ERROR.error_type}",
         },
     },
-    description="사용자 목록 조회",
+    description="로그인",
 )
-def get_users(
-    user_token: str = Header(None),
-    session: Session = Depends(get_db),
-):
-    AuthValidator.validate_user_token(user_token)
-    users = UserService(session=session).get_users()
-
-    return GetUsersResponse(
-        count=len(users),
-        payload=[
-            UserResponse(
-                id=user.id,
-                name=user.name,
-                access_token=user.access_token,
-            )
-            for user in users
-        ],
+def sign_up(request: UserRequest, session: Session = Depends(get_db)):
+    user_token = UserService(session_=session).sign_in(
+        phone_number=request.phone_number, password=request.password
     )
+
+    return {
+        "meta": {"code": 200, "message": "ok"},
+        "data": user_token,
+    }
+
+
+@router.post(
+    path="/sign-up",
+    response_model=UserTokenResponse,
+    responses={
+        401: {
+            "model": ErrorResponse,
+            "description": f"{FailureType.NOT_AUTHORIZED_ERROR.error_type}",
+        },
+        400: {
+            "model": ErrorResponse,
+            "description": f"{FailureType.INPUT_PARAMETER_ERROR.error_type}"
+            f"\n\n{FailureType.CREATE_DATA_ERROR.error_type}"
+            f"\n\n{FailureType.UPSERT_DATA_ERROR.error_type}",
+        },
+    },
+    description="회원 가입",
+)
+def sign_up(request: UserRequest, session: Session = Depends(get_db)):
+    user_token = UserService(session_=session).sign_up(
+        phone_number=request.phone_number, password=request.password
+    )
+
+    return {
+        "meta": {"code": 200, "message": "ok"},
+        "data": user_token,
+    }

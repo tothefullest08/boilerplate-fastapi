@@ -8,16 +8,22 @@ class Config(BaseSettings):
     SERVICE_NAME: str = "boiler_plate"
     APP_HOST: str = "localhost"
     APP_PORT: int = 7002
-    WRITER_DB_URL: str = (
-        "mysql+pymysql://admin:admin1234@localhost:33060/mysql"
-    )
-    READER_DB_URL: str = (
-        "mysql+pymysql://admin:admin1234@localhost:33060/mysql"
-    )
+    WRITER_DB_URL: str = "mysql+pymysql://admin:admin1234@localhost:3306/assignment"
+    READER_DB_URL: str = "mysql+pymysql://admin:admin1234@localhost:3306/assignment"
+    JWT_ALGORITHM: str = "HS256"
+    ACCESS_TOKEN_SECRET: str = "secret1234"
+    ACCESS_TOKEN_EXPIRE_MINUTES: int = 1440
+    REFRESH_TOKEN_SECRET: str = "refresh_secret1234"
+    REFRESH_TOKEN_EXPIRE_MINUTES: int = 20160
 
 
 class LocalConfig(Config):
     pass
+
+
+class TestingConfig(Config):
+    WRITER_DB_URL: str = "sqlite:///test.db"
+    READER_DB_URL: str = "sqlite:///test.db"
 
 
 class DevelopmentConfig(Config):
@@ -32,6 +38,7 @@ def get_config():
     env = os.getenv("ENV", "local")
     config_type = {
         "local": LocalConfig(),
+        "testing": TestingConfig(),
         "dev": DevelopmentConfig(),
         "prod": ProductionConfig(),
     }
