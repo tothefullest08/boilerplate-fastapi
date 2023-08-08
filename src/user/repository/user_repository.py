@@ -30,7 +30,7 @@ class UserRepository:
 
     def get_users(
         self, user_ids: List[int] = None, phone_number: str = None
-    ) -> [UserModel]:
+    ) -> List[UserModel]:
         try:
             filter_ = []
             if user_ids:
