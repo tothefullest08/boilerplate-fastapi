@@ -16,7 +16,7 @@ def init_listeners(app_: FastAPI) -> None:
         return JSONResponse(
             status_code=e.get_status_code(),
             content={
-                "meta": {"code": e.get_status_code(), "message": e.get_description()},
+                "meta": {"code": e.get_status_code(), "message": e.get_error_type()},
                 "data": None,
             },
         )
