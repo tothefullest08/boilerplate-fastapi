@@ -10,6 +10,7 @@ class MetaResponse(BaseModel):
 
 class BaseResponse(BaseModel):
     meta: MetaResponse
+    data: None
 
     class Config:
         json_encoders = {datetime: lambda dt: dt.strftime("%Y-%m-%d %H:%M:%S")}

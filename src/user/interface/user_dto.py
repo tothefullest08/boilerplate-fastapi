@@ -10,6 +10,7 @@ class JwtTokenDto(BaseModel):
 
 class UserTokenDto(BaseModel):
     id: int = Field(..., description="id")
+    user_id: int = Field(..., description="유저 아이디")
     access_token: str = Field(..., description="액세스 토큰")
     refresh_token: str = Field(..., description="리프레시 토큰")
     created_at: datetime = Field(..., description="생성 시간")

@@ -113,4 +113,4 @@ class UserRepository:
             self.__session.rollback()
             self.__session.flush()
             self.__logger.error(f" 유저 토큰 삭제 실패. user_id: {user_id}, e: {e}")
-            raise InternalException(FailureType.UPDATE_DATA_ERROR, "유저 토큰 삭제 실패")
+            raise InternalException(FailureType.DELETE_DATA_ERROR, "유저 토큰 삭제 실패")
