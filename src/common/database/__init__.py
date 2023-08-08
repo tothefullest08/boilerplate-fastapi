@@ -1,4 +1,4 @@
-from typing import Any, Generator
+from typing import Generator
 
 from src.common.database.session import SessionLocal
 
