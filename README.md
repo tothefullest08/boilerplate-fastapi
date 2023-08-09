@@ -10,20 +10,25 @@
 ### 2.1. 도커로 서버를 띄우는 경우
 - 도커 빌드 및 실행
     ```bash
-    $ docker compose up -d
+    docker compose up -d
     ```
 ### 2.2. DB만 도커로 띄우고 로컬에서 서버를 띄우는 경우
+- 패키지 및 가상환경 설정
+    ```bash
+    poetry install
+    poetry shell
+    ```
 - 도커 빌드 및 실행
     ```bash
-    $ docker compose up db -d
+    docker compose up db -d
     ```
 - 테이블 마이그레이션 실행
     ```bash
-    $ alembic upgrade head
+    alembic upgrade head
     ```
 - 로컬 서버 실행
     ```bash
-    $  python3 main.py --env local --debug  
+    python3 main.py --env local --debug  
     ```
 ### 2.3. 기타 정보
 - 서버 정보 (FastAPI) 
@@ -44,7 +49,7 @@
 - 테스트
   - 단위 테스트 작성 되어 있음
       ```bash
-      $  pytest  
+      pytest  
       ```
 
 ## 3. Architecture
