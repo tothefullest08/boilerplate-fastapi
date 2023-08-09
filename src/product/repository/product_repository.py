@@ -1,12 +1,14 @@
 from typing import List, Union
+
 from sqlalchemy import or_
 from sqlalchemy.orm import Session
+
 from src.common.exception import InternalException, FailureType
 from src.common.logger import Logger
 from src.common.parser import parse_korean_initial_sound
 from src.product.interface.product_request import ProductRequest, UpdateProductRequest
 from src.product.model import ProductModel
-from src.user.model.user_model import UserModel, UserTokenModel
+from src.user.model.user_model import UserModel
 
 
 class ProductRepository:

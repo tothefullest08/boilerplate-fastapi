@@ -5,7 +5,6 @@ from src.common.auth import get_current_user_id
 from src.common.database import get_db
 from src.common.exception import FailureType
 from src.common.response import ErrorResponse, BaseResponse
-from src.user.interface.user_dto import UserTokenDto
 from src.user.interface.user_request import UserRequest
 from src.user.interface.user_response import UserTokenResponse
 from src.user.service.user_service import UserService

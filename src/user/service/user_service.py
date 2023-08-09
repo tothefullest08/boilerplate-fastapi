@@ -1,12 +1,14 @@
 import re
+
 from sqlalchemy.orm import Session
+
 from src.common.auth import JwtTokenizer
 from src.common.cipher import Cipher
 from src.common.config import config
 from src.common.exception import FailureType, InternalException
 from src.common.logger import Logger
 from src.user.interface.user_dto import JwtTokenDto, UserTokenDto
-from src.user.model.user_model import UserTokenModel, UserModel
+from src.user.model.user_model import UserModel
 from src.user.repository.user_repository import UserRepository
 
 

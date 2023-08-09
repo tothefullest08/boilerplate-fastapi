@@ -1,6 +1,5 @@
 from typing import Any
 
-import sqlalchemy
 from sqlalchemy.ext.declarative import declared_attr
 from sqlalchemy.orm import as_declarative
 

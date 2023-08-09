@@ -1,5 +1,7 @@
 from typing import List, Union
+
 from sqlalchemy.orm import Session
+
 from src.common.exception import InternalException, FailureType
 from src.common.logger import Logger
 from src.user.model.user_model import UserModel, UserTokenModel

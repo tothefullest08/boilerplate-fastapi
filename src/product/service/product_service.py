@@ -1,6 +1,7 @@
 from typing import Union, List
 
 from sqlalchemy.orm import Session
+
 from src.common.exception import FailureType, InternalException
 from src.common.logger import Logger
 from src.common.parser import parse_korean_initial_sound

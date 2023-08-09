@@ -1,10 +1,10 @@
 from datetime import datetime, timedelta
 
-from sqlalchemy.orm import Session
-from typing_extensions import Annotated
 from fastapi import Depends
 from fastapi.security import OAuth2PasswordBearer
 from jose import jwt, JWTError
+from sqlalchemy.orm import Session
+from typing_extensions import Annotated
 
 from src.common.config import config
 from src.common.database import get_db

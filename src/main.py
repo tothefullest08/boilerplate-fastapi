@@ -1,5 +1,3 @@
-from typing import List
-
 from fastapi import FastAPI, Request
 from fastapi.exceptions import RequestValidationError
 from starlette.responses import JSONResponse
