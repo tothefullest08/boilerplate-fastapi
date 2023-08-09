@@ -1,9 +1,10 @@
-## 1. 기술스택
+## 1. 기술 스택
 - Language: Python 3.8.17
 - Framework: FastAPI 0.101.0
 - DB: mysql 5.7
 - DB Migration Tool: Alembic 1.11.2
 - ORM: SQLAlchemy 2.0.19
+- Dependency Manager: Poetry
 
 ## 2. 로컬 개발 환경 셋팅
 ### 2.1. 도커로 서버를 띄우는 경우
@@ -58,7 +59,6 @@
 
 ## 4. Directory Structure
 ```
-.
 ├── main.py 
 ├── docker # 도커 관련 코드
 │   ├── api
