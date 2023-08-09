@@ -29,8 +29,8 @@ fileConfig(config.config_file_name)
 
 from src.common.config import config as app_config
 from src.common.database.model import Base
-from src.user.model import *
 from src.product.model import *
+from src.user.model import *
 
 target_metadata = [Base.metadata]
 
