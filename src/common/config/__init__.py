@@ -8,8 +8,8 @@ class Config(BaseSettings):
     SERVICE_NAME: str = "boiler_plate"
     APP_HOST: str = "localhost"
     APP_PORT: int = 8000
-    WRITER_DB_URL: str = "mysql+pymysql://fastapi:fastapi@localhost:3306/fastapi"
-    READER_DB_URL: str = "mysql+pymysql://fastapi:fastapi@localhost:3306/fastapi"
+    WRITER_DB_URL: str = "mysql+pymysql://root:fastapi@localhost:3306/fastapi"
+    READER_DB_URL: str = "mysql+pymysql://root:fastapi@localhost:3306/fastapi"
     JWT_ALGORITHM: str = "HS256"
     ACCESS_TOKEN_SECRET: str = "secret1234"
     ACCESS_TOKEN_EXPIRE_MINUTES: int = 1440
