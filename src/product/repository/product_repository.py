@@ -23,7 +23,7 @@ class ProductRepository:
                 category=dto.category,
                 price=dto.price,
                 raw_price=dto.raw_price,
-                name=dto.raw_price,
+                name=dto.name,
                 name_chosung=name_chosung,
                 description=dto.description,
                 barcode=dto.barcode,
@@ -43,14 +43,26 @@ class ProductRepository:
             raise InternalException(FailureType.CREATE_DATA_ERROR, "상품 생성 실패")
 
     def get_products(
-        self, user_id: int, previous_id: int = None, paging_limit: int = 10
+        self,
+        user_id: int,
+        name: str = None,
+        previous_id: int = None,
+        paging_limit: int = 10,
     ) -> List[ProductModel]:
         try:
             filter_ = []
             if user_id:
                 filter_.append(ProductModel.user_id == user_id)
+            if name:
+                chosung = parse_korean_initial_sound(name)
+                filter_.append(
+                    or_(
+                        ProductModel.name.like(f"%{name}%"),
+                        ProductModel.name_chosung.like(f"%{chosung}%"),
+                    )
+                )
             if previous_id:
-                filter_.append(ProductModel.id == previous_id)
+                filter_.append(ProductModel.id < previous_id)
 
             return (
                 self.__session.query(ProductModel)
@@ -63,34 +75,26 @@ class ProductRepository:
             self.__logger.error(f"상품 목록 조회 실패, user_id: {user_id}, e: {e}")
             raise InternalException(FailureType.GET_DATA_ERROR, "상품 목록 조회 실패")
 
-    def get_product(
-        self, user_id: int, product_id: int = None, name: str = None
-    ) -> Union[UserModel, None]:
+    def get_product(self, user_id: int, product_id: int) -> Union[UserModel, None]:
         try:
-            filter_ = []
-            if user_id:
-                filter_.append(ProductModel.user_id == user_id)
-            if product_id:
-                filter_.append(ProductModel.id == product_id)
-            if name:
-                chosung = parse_korean_initial_sound(name)
-                filter_.append(
-                    or_(
-                        ProductModel.name.like(f"%{name}%"),
-                        ProductModel.name_chosung.like(f"%{chosung}%"),
-                    )
-                )
-
-            return self.__session.query(ProductModel).filter(*filter_).all()
+            return (
+                self.__session.query(ProductModel)
+                .filter(ProductModel.user_id == user_id, ProductModel.id == product_id)
+                .first()
+            )
         except Exception as e:
-            self.__logger.error(f"상품 조회 실패, user_id: {user_id}, name: {name}, e: {e}")
+            self.__logger.error(
+                f"상품 조회 실패, user_id: {user_id}, product_id: {product_id}, e: {e}"
+            )
             raise InternalException(FailureType.GET_DATA_ERROR, "상품 조회 실패")
 
-    def update_product(self, user_id: int, dto: UpdateProductRequest) -> ProductModel:
+    def update_product(
+        self, user_id: int, product_id: int, dto: UpdateProductRequest
+    ) -> ProductModel:
         try:
             product: ProductModel = (
                 self.__session.query(ProductModel)
-                .filter(ProductModel.user_id == user_id)
+                .filter(ProductModel.user_id == user_id, ProductModel.id == product_id)
                 .first()
             )
 

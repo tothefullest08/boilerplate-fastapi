@@ -6,7 +6,7 @@ from starlette.responses import JSONResponse
 
 from src.common.exception import InternalException
 from src.common.exception.failure_type import FailureType
-from src.common.response import ErrorResponse
+from src.product.controller import product_v1_router
 from src.user.controller import user_v1_router
 
 
@@ -36,5 +36,8 @@ def init_listeners(app_: FastAPI) -> None:
 
 
 app = FastAPI(docs_url="/docs", openapi_url="/openapi.json")
+
 app.include_router(user_v1_router, prefix="/api/v1")
+app.include_router(product_v1_router, prefix="/api/v1")
+
 init_listeners(app_=app)

@@ -15,7 +15,8 @@ class ProductModel(Base):
     __tablename__ = "products"
     __table_args__ = (
         Index(
-            "products_name_name_chosung_idx",
+            "products_user_id_name_name_chosung_idx",
+            "user_id",
             "name",
             "name_chosung",
         ),
@@ -26,7 +27,7 @@ class ProductModel(Base):
         primary_key=True,
         autoincrement=True,
     )
-    user_id = Column(Integer, index=True, unique=True, nullable=False)
+    user_id = Column(Integer, index=True, nullable=False)
     category = Column(String(32), comment="카테고리", nullable=False)
     price = Column(Integer, comment="가격", nullable=False)
     raw_price = Column(Integer, comment="원가", nullable=False)

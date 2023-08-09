@@ -11,7 +11,7 @@ class ProductDto(BaseModel):
     user_id: int = Field(..., description="유저 아이디")
     category: str = Field(..., description="카테고리")
     price: int = Field(..., description="가격")
-    raw_price: str = Field(..., description="원가")
+    raw_price: int = Field(..., description="원가")
     name: str = Field(..., description="이름")
     description: str = Field(..., description="설명")
     barcode: str = Field(..., description="바코드")

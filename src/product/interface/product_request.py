@@ -9,7 +9,7 @@ from src.product.interface.product_enum import ProductSizeEnum
 class ProductRequest(BaseModel):
     category: str = Field(..., description="카테고리")
     price: int = Field(..., description="가격")
-    raw_price: str = Field(..., description="원가")
+    raw_price: int = Field(..., description="원가")
     name: str = Field(..., description="이름")
     description: str = Field(..., description="설명")
     barcode: str = Field(..., description="바코드")
@@ -20,7 +20,7 @@ class ProductRequest(BaseModel):
 class UpdateProductRequest(BaseModel):
     category: Optional[str] = Field(None, description="카테고리")
     price: Optional[int] = Field(None, description="가격")
-    raw_price: Optional[str] = Field(None, description="원가")
+    raw_price: Optional[int] = Field(None, description="원가")
     name: Optional[str] = Field(None, description="이름")
     description: Optional[str] = Field(None, description="설명")
     barcode: Optional[str] = Field(None, description="바코드")
