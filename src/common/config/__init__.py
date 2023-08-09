@@ -7,7 +7,7 @@ class Config(BaseSettings):
     ENV: str = "development"
     SERVICE_NAME: str = "boiler_plate"
     APP_HOST: str = "localhost"
-    APP_PORT: int = 7002
+    APP_PORT: int = 8000
     WRITER_DB_URL: str = "mysql+pymysql://admin:admin1234@localhost:3306/assignment"
     READER_DB_URL: str = "mysql+pymysql://admin:admin1234@localhost:3306/assignment"
     JWT_ALGORITHM: str = "HS256"
