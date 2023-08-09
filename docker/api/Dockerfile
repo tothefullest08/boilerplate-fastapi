@@ -1,8 +1,9 @@
 FROM tiangolo/uvicorn-gunicorn-fastapi:python3.8
 MAINTAINER Harry <tothefullest08@gmail.com>
 
-COPY . /home
-WORKDIR /home
+COPY . /
+WORKDIR /
+USER root
 ENV ENV=dev
 RUN pip install "poetry==1.2.1"
 RUN poetry config virtualenvs.create false \
@@ -12,5 +13,5 @@ RUN wget https://github.com/jwilder/dockerize/releases/download/$DOCKERIZE_VERSI
     && tar -C /usr/local/bin -xzvf dockerize-linux-amd64-$DOCKERIZE_VERSION.tar.gz \
     && rm dockerize-linux-amd64-$DOCKERIZE_VERSION.tar.gz
 
-RUN chmod +x /home/docker/api/startup.sh
-ENTRYPOINT /home/docker/api/startup.sh
+RUN chmod +x /docker/api/startup.sh
+ENTRYPOINT /docker/api/startup.sh
