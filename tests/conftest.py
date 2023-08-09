@@ -1,4 +1,6 @@
 import os
+import random
+import string
 from typing import AsyncIterable, Generator
 
 import pytest
@@ -18,14 +20,6 @@ url = app_config.WRITER_DB_URL
 _db_conn = create_engine(url)
 
 
-def get_test_db() -> AsyncIterable[Session]:
-    sess = Session(bind=_db_conn)
-    try:
-        yield sess
-    finally:
-        sess.close()
-
-
 @pytest.fixture(scope="session")
 def inject_session():
     def _inject_session(url: str):
@@ -41,17 +35,27 @@ def create_test_database():
     if database_exists(url):
         drop_database(url)
     create_database(url)
-    Base.metadata.create_all(_db_conn)
-    app.dependency_overrides[get_db] = get_test_db
-    yield
-    drop_database(url)
+    try:
+        Base.metadata.create_all(_db_conn)
+        app.dependency_overrides[get_db] = get_test_db
+        yield
+    finally:
+        drop_database(url)
 
 
-@pytest.fixture
+def get_test_db() -> AsyncIterable[Session]:
+    sess = Session(bind=_db_conn)
+    try:
+        yield sess
+    finally:
+        sess.close()
+
+
+@pytest.fixture(scope="session")
 def test_session():
     connection = _db_conn.connect()
-    Session = sessionmaker(bind=connection)
-    session = Session()
+    db = sessionmaker(bind=connection)
+    session = db()
     yield session
 
     for tbl in reversed(Base.metadata.sorted_tables):
@@ -60,7 +64,15 @@ def test_session():
     session.close()
 
 
-@pytest.fixture(scope="module")
+@pytest.fixture
 def client() -> Generator:
     with TestClient(app) as c:
         yield c
+
+
+@pytest.fixture(scope="function")
+def generate_random_phone_numer():
+    first = "010"
+    second = "".join(random.choice(string.digits) for _ in range(4))
+    third = "".join(random.choice(string.digits) for _ in range(4))
+    return "{}-{}-{}".format(first, second, third)
