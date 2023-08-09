@@ -9,6 +9,8 @@ class FailureType(Enum):
     UPSERT_DATA_ERROR = ("upsert_data_error", 400)
     UPDATE_DATA_ERROR = ("update_data_error", 400)
     DELETE_DATA_ERROR = ("delete_data_error", 400)
+    DATA_PROCESSING_ERROR = ("data_processing_error", 400)
+    NOT_FOUND_ERROR = ("not_found_error", 400)
     NOT_AUTHORIZED_ERROR = ("not_authorized_error", 401)
     UNAUTHORIZED_TOKEN_ERROR = ("unauthorized_token_error", 401)
 
